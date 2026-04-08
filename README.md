@@ -15,6 +15,7 @@ O repositório contém a resolução dos 11 problemas proposto. O trabalho une a
 
 ## Tecnologias
 - **UML**: Para modelagem.
-- **Python/Streamlit**: Para o desenvolvimento do software.
+- **vscode**: IDE utilizada Para o desenvolvimento do software.
+- **Python/Streamlit**: linguagem e framewoker do sistema. 
 ---
 Projeto entregue como parte extra da avaliação de APS
