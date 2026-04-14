@@ -42,3 +42,6 @@ Para rodar as questões desenvolvidas em Streamlit, certifique-se de ter o Pytho
 1. Instale o Streamlit:
    ```bash
    pip install streamlit
+
+---
+📖 Confira o detalhamento dos requisitos aqui: REQUISITOS.md
