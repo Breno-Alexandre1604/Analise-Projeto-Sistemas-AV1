@@ -189,3 +189,48 @@ classDiagram
     }
     FechamentoMensal "1" -- "*" Gasto : processa
 ```
+---
+
+## 🥐 06. Exercício: Comanda Eletrônica (Padaria Doce Sabor)
+
+### 6.1 Requisitos Funcionais (RF)
+* **RF01 - Cadastro de Produtos:** O sistema deve manter um catálogo de produtos com descrição e valor unitário.
+* **RF02 - Identificação de Comanda:** O sistema deve permitir a abertura de uma comanda por meio de uma numeração única.
+* **RF03 - Registro de Consumo:** O atendente deve poder lançar produtos e quantidades em uma comanda específica.
+* **RF04 - Leitura de Comanda:** No caixa, o sistema deve recuperar todos os itens lançados em uma comanda informada.
+* **RF05 - Cálculo de Subtotal:** O sistema deve calcular automaticamente o valor de cada item (quantidade x valor unitário).
+* **RF06 - Cálculo de Total Geral:** O sistema deve somar todos os subtotais da comanda para apresentar o valor final da compra.
+* **RF07 - Finalização de Venda:** O sistema deve permitir o fechamento da comanda, limpando seus itens e liberando o número para um novo cliente.
+
+### 6.2 Requisitos Não Funcionais (RNF)
+* **RNF01 - Persistência em Banco de Dados:** Uso de **SQLite** para garantir que os dados lançados pelo atendente fiquem disponíveis imediatamente para o caixa.
+* **RNF02 - Integridade de Dados:** O sistema deve garantir que o valor unitário utilizado no cálculo seja o valor vigente no momento da leitura da comanda.
+* **RNF03 - Cibersegurança (Controle de Acesso):** Simulação de proteção por senha para operações sensíveis, como cancelamento de itens (Área do Gerente).
+* **RNF04 - Usabilidade (Módulos):** A interface deve ser dividida em módulos distintos para Atendente e Caixa, simulando o fluxo real de uma padaria.
+
+---
+### Diagrama de Classe - Questão 06
+
+```mermaid
+classDiagram
+    class Produto {
+        +id: int
+        +descricao: str
+        +valorUnitario: float
+    }
+    class ItemComanda {
+        +produto: Produto
+        +quantidade: int
+        +subtotal: float
+        +calcularSubtotal()
+    }
+    class Comanda {
+        +numero: int
+        -itens: List~ItemComanda~
+        +registrarConsumo(produto, qtd)
+        +calcularValorTotal() float
+        +finalizarCompra()
+    }
+    Comanda "1" -- "*" ItemComanda : gerencia
+    ItemComanda "*" -- "1" Produto : referencia
+```
