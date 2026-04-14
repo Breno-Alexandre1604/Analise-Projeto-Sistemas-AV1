@@ -72,4 +72,37 @@ classDiagram
         +exibir() dict
     }
 ```
+---
+
+## 🕹️ 03. Exercício: Classe Boneco em Movimento
+
+### 3.1 Requisitos Funcionais (RF)
+* **RF01 - Identificação do Personagem:** O sistema deve permitir atribuir e alterar o nome do boneco.
+* **RF02 - Controle de Movimentação:** O sistema deve permitir mover o boneco em quatro direções: Cima, Baixo, Direita e Esquerda.
+* **RF03 - Gestão de Coordenadas:** O sistema deve manter e atualizar as coordenadas cartesianas (X e Y) do boneco a cada movimento realizado.
+* **RF04 - Monitoramento de Direção:** O sistema deve registrar a última direção tomada ou indicar se o boneco está parado.
+* **RF05 - Relatório de Status:** O sistema deve exibir em tempo real a posição atual (X, Y) e o nome do boneco na interface.
+
+### 3.2 Requisitos Não Funcionais (RNF)
+* **RNF01 - Restrição de Fronteira:** O sistema deve impedir que o boneco ultrapasse os limites definidos da tela (Grid de 0 a 10), garantindo a integridade do cenário.
+* **RNF02 - Encapsulamento Rigoroso:** Os atributos de posição e direção devem ser privados (`_`), sendo acessados apenas por métodos específicos (Cibersegurança/Arquitetura).
+* **RNF03 - Interface Gráfica:** A visualização deve ser feita via **Plotly** integrado ao **Streamlit**, permitindo uma representação visual clara do movimento no plano cartesiano.
+* **RNF04 - Cibersegurança (Validação de Entrada):** O sistema deve validar o nome do boneco para evitar entradas de scripts maliciosos em campos de texto.
+
+---
+### Diagrama de Classe - Questão 03
+
+```mermaid
+classDiagram
+    class Boneco {
+        -nome: str
+        -posicaoX: float
+        -posicaoY: float
+        -direcaoAtual: str
+        +mover(direcao) bool
+        +parar()
+        +obterPosicao() tuple
+        +alterarNome(novoNome)
+    }
+```
 
