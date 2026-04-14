@@ -316,3 +316,42 @@ classDiagram
     Colecao "1" -- "*" CD : armazena
     CD "*" -- "1" Artista : possui
 ```
+---
+
+## 🎧 09. Exercício: Coleção de CDs (Variação A - Relacional)
+
+### 9.1 Requisitos Funcionais (RF)
+* **RF01 - Gestão de Músicos:** Cadastro independente de artistas/músicos para compor coletâneas.
+* **RF02 - Especificação de Álbum:** Registro de título, ano e as características físicas do CD (Coletânea e CD Duplo).
+* **RF03 - Cadastro de Faixas:** Registro das músicas de cada CD, incluindo obrigatoriamente o tempo de duração de cada faixa.
+* **RF04 - Relatório por Músico:** Localizar todos os CDs nos quais um determinado artista participou (mesmo em coletâneas).
+* **RF05 - Relatório por Faixa:** Localizar em quais CDs uma determinada música está presente.
+
+### 9.2 Requisitos Não Funcionais (RNF)
+* **RNF01 - Integridade Relacional:** Uso de **SQLite com Chaves Estrangeiras** para garantir que, ao deletar um CD, todas as suas músicas sejam apagadas (Cascade Delete).
+* **RNF02 - Desempenho de Busca:** Uso de índices SQL nos campos de nome de artista e título de música para garantir filtragens instantâneas.
+* **RNF03 - Cibersegurança (Sanitização):** Validação de formato de tempo (MM:SS) nas faixas para evitar inconsistências nos dados.
+
+---
+### Diagrama de Classe - Questão 09 (Relacional)
+
+```mermaid
+classDiagram
+    class Artista {
+        +nome: str
+    }
+    class Musica {
+        +titulo: str
+        +duracao: str
+    }
+    class CD {
+        +titulo: str
+        +ano: int
+        +isColetanea: bool
+        +isDuplo: bool
+        -artistas: List~Artista~
+        -faixas: List~Musica~
+    }
+    CD "*" -- "*" Artista : participa
+    CD "1" *-- "*" Musica : compõe (Faixa)
+```
