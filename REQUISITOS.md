@@ -234,3 +234,44 @@ classDiagram
     Comanda "1" -- "*" ItemComanda : gerencia
     ItemComanda "*" -- "1" Produto : referencia
 ```
+---
+
+## 🛒 07. Exercício: Lista de Compras (Carolina)
+
+### 7.1 Requisitos Funcionais (RF)
+* **RF01 - Gerenciar Catálogo:** Permite cadastrar o nome do produto e sua unidade de medida (Kg, Unidade, Litro, Caixa).
+* **RF02 - Planejamento Mensal:** Permite definir a "Quantidade Mês" (estimativa de consumo) e a "Quantidade Compra" (o que será de fato adquirido no período).
+* **RF03 - Gestão de Preços:** Permite a atualização do preço estimado de cada produto com base na última análise de mercado realizada pela usuária.
+* **RF04 - Cálculo Dinâmico:** O sistema deve calcular o subtotal por item (Qtd. Compra × Preço Estimado) e o somatório total da lista em tempo real.
+* **RF05 - Persistência Histórica:** Possibilidade de salvar listas de meses diferentes para comparação.
+
+### 7.2 Requisitos Não Funcionais (RNF)
+* **RNF01 - Confiabilidade:** Validação rigorosa de tipos de dados; campos de quantidade e preço não devem aceitar valores negativos ou nulos.
+* **RNF02 - Eficiência de Interface:** Uso de interface tipo "Data Editor" para minimizar a quantidade de cliques no preenchimento da lista.
+* **RNF03 - Portabilidade:** Execução via navegador através do framework **Streamlit**.
+* **RNF04 - Cibersegurança:** Proteção contra entradas maliciosas via sanitização de inputs de texto (Regex básico).
+
+---
+### Diagrama de Classe - Questão 07
+
+```mermaid
+classDiagram
+    class Produto {
+        +nome: str
+        +unidadeMedida: str
+        +precoEstimado: float
+    }
+    class ItemCompra {
+        +produto: Produto
+        +qtdPrevista: float
+        +qtdEfetiva: float
+        +calcularSubtotal() float
+    }
+    class ListaMensal {
+        +mesReferencia: str
+        -itens: List~ItemCompra~
+        +calcularTotalGeral() float
+    }
+    ListaMensal "1" -- "*" ItemCompra : agrega
+    ItemCompra "*" -- "1" Produto : referencia
+```
