@@ -397,3 +397,49 @@ classDiagram
     Funcionario "1" -- "*" Reuniao : solicita
     Sala "1" -- "*" Reuniao : abriga
 ```
+---
+
+## 👥 11. Exercício: Herança e Polimorfismo (Pessoas)
+
+### 11.1 Requisitos Funcionais (RF)
+* **RF01 - Cadastro Unificado:** O sistema deve permitir o cadastro de Funcionários e Clientes, reaproveitando a estrutura da superclasse Pessoa.
+* **RF02 - Cálculo de Idade:** Através de um método na superclasse, o sistema deve calcular automaticamente a idade com base na data de nascimento.
+* **RF03 - Gestão Funcional:** Registro de matrícula, salário base, data de admissão e cargo para funcionários.
+* **RF04 - Reajuste Salarial:** O sistema deve permitir aplicar um reajuste percentual sobre o salário do funcionário.
+* **RF05 - Promoção:** O sistema deve permitir a alteração do cargo de um funcionário.
+* **RF06 - Gestão de Clientes:** Registro de código identificador, limite de crédito e profissão para clientes.
+
+### 11.2 Requisitos Não Funcionais (RNF)
+* **RNF01 - Arquitetura (Herança):** Uso obrigatório de uma Superclasse (`Pessoa`) para conter atributos e métodos comuns, reduzindo a duplicidade de código.
+* **RNF02 - Integridade Temporal:** A data de admissão de um funcionário não pode ser anterior à sua data de nascimento.
+* **RNF03 - Coleções de Dados:** Endereços e Telefones devem ser tratados como coleções (objetos associados), permitindo múltiplos contatos por pessoa.
+
+---
+### Diagrama de Classe - Questão 11 (Herança)
+
+```mermaid
+classDiagram
+    class Pessoa {
+        +nome: str
+        +dataNascimento: date
+        +enderecos: List
+        +telefones: List
+        +obterIdade() int
+        +cadastrar()
+    }
+    class Funcionario {
+        +matricula: int
+        +salario: float
+        +dataAdmissao: date
+        +cargo: Cargo
+        +reajustarSalario(percentual)
+        +promover(novoCargo)
+    }
+    class Cliente {
+        +codigo: str
+        +limiteCredito: float
+        +profissao: Profissao
+    }
+    Pessoa <|-- Funcionario : herda
+    Pessoa <|-- Cliente : herda
+```
