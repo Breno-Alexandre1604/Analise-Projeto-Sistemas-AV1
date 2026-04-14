@@ -37,6 +37,7 @@ classDiagram
         +verificarMenorConsumo()
         +verificarMaiorConsumo()
     }
+    GerenciadorConsumo "1" --> "*" ContaLuz
 ```
 ---
 
@@ -105,4 +106,48 @@ classDiagram
         +alterarNome(novoNome)
     }
 ```
+---
 
+## 💊 04. Exercício: Horário de Remédios
+
+### 4.1 Requisitos Funcionais (RF)
+* **RF01 - Cadastro de Prescrição:** O sistema deve permitir o cadastro do paciente, nome do remédio, dosagem, data de início, duração do tratamento (dias) e frequência diária.
+* **RF02 - Sugestão de Horários:** Ao definir a frequência, o sistema deve sugerir automaticamente os intervalos de horários para as doses.
+* **RF03 - Personalização de Cronograma:** O usuário deve poder escolher o horário da primeira dose, e o sistema deve calcular os demais horários com base nisso.
+* **RF04 - Cálculo de Término:** O sistema deve informar automaticamente a data final do tratamento.
+* **RF05 - Geração de Planilha:** O sistema deve gerar uma grade completa de horários para todo o período do tratamento.
+* **RF06 - Agenda Diária:** O sistema deve filtrar e exibir apenas os remédios programados para o dia atual.
+* **RF07 - Registro de Dose:** O usuário deve marcar quando tomou o remédio. O sistema deve registrar o horário real.
+* **RF08 - Reorganização por Atraso:** Caso uma dose seja tomada com atraso, o sistema deve recalcular automaticamente os horários das doses restantes **apenas para aquele dia**.
+
+### 4.2 Requisitos Não Funcionais (RNF)
+* **RNF01 - Persistência de Dados:** Uso de **SQLite** para garantir que os dados não sejam perdidos ao fechar o navegador (Diferencial Sênior).
+* **RNF02 - Notificação Simulada:** O sistema deve destacar visualmente doses pendentes e atrasadas na interface.
+* **RNF03 - Cibersegurança (SQL Injection):** Uso de *Parameterized Queries* para todas as interações com o banco de dados.
+* **RNF04 - Integridade Temporal:** O sistema não deve permitir cadastros de tratamentos com datas retroativas.
+
+---
+### Diagrama de Classe - Questão 04
+
+```mermaid
+classDiagram
+    class Prescricao {
+        +paciente: str
+        +remedio: str
+        +dosagem: str
+        +dataInicio: date
+        +dias: int
+        +vezesAoDia: int
+        +dataFim: date
+        +doses: List~Dose~
+        +calcularDataFim()
+    }
+    class Dose {
+        +dataDose: date
+        +horaEsperada: time
+        +horaReal: time
+        +status: str
+        +prescricaoPai: Prescricao
+    }
+    Prescricao "1" -- "*" Dose : gerencia
+```
