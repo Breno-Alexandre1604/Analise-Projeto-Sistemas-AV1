@@ -355,3 +355,45 @@ classDiagram
     CD "*" -- "*" Artista : participa
     CD "1" *-- "*" Musica : compõe (Faixa)
 ```
+---
+
+## 🏢 10. Exercício: Gestão de Salas de Reunião (Patrícia)
+
+### 10.1 Requisitos Funcionais (RF)
+* **RF01 - Cadastro de Colaboradores:** Registro de funcionários contendo nome, cargo e ramal para identificação do responsável pela reserva.
+* **RF02 - Gestão de Infraestrutura:** Cadastro das salas de reunião especificando identificação (nome/número) e capacidade máxima de lugares.
+* **RF03 - Alocação de Reunião:** Permite agendar uma sala informando data, horário de início, horário de término e o assunto.
+* **RF04 - Realocação Dinâmica:** Capacidade de alterar a data, a sala ou o horário de uma reunião já agendada.
+* **RF05 - Consulta de Disponibilidade:** Ferramenta para diretores consultarem quais salas estarão livres em uma data e faixa de horário específica.
+* **RF06 - Grade Diária (Visão Planilha):** Geração de uma visualização matricial (horários vs. salas) para controle rápido da secretária.
+
+### 10.2 Requisitos Não Funcionais (RNF)
+* **RNF01 - Prevenção de Conflitos (Double-Booking):** O sistema deve impedir tecnicamente o agendamento de uma sala caso já exista outra reunião no mesmo intervalo de tempo.
+* **RNF02 - Integridade de Dados:** Uso de **SQLite** com índices em campos de data e hora para garantir consultas de disponibilidade em menos de 1 segundo.
+* **RNF03 - Cibersegurança:** Validação lógica para garantir que o horário de término seja sempre posterior ao horário de início.
+
+---
+### Diagrama de Classe - Questão 10
+
+```mermaid
+classDiagram
+    class Funcionario {
+        +nome: str
+        +cargo: str
+        +ramal: str
+    }
+    class Sala {
+        +numero: str
+        +capacidade: int
+    }
+    class Reuniao {
+        +data: date
+        +horaInicio: time
+        +horaFim: time
+        +assunto: str
+        -responsavel: Funcionario
+        -local: Sala
+    }
+    Funcionario "1" -- "*" Reuniao : solicita
+    Sala "1" -- "*" Reuniao : abriga
+```
