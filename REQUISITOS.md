@@ -275,3 +275,44 @@ classDiagram
     ListaMensal "1" -- "*" ItemCompra : agrega
     ItemCompra "*" -- "1" Produto : referencia
 ```
+---
+
+## 💿 08. Exercício: Coleção de CDs (Adriano)
+
+### 8.1 Requisitos Funcionais (RF)
+* **RF01 - Cadastro de Acervo:** O sistema deve permitir o registro de CDs informando o título do álbum, o nome do artista (cantor ou conjunto) e o ano de lançamento.
+* **RF02 - Manutenção de Dados:** O sistema deve permitir a edição e a exclusão de CDs cadastrados para manter a coleção atualizada.
+* **RF03 - Organização Alfabética:** A listagem dos CDs deve ser exibida automaticamente em ordem alfabética pelo título para facilitar a localização.
+* **RF04 - Busca Rápida:** O sistema deve oferecer um campo de pesquisa que filtre os CDs por título ou nome do artista em tempo real.
+* **RF05 - Categorização de Artista:** O sistema deve permitir distinguir se o artista é um "Cantor Solo" ou um "Conjunto/Banda".
+
+### 8.2 Requisitos Não Funcionais (RNF)
+* **RNF01 - Usabilidade Mobile (Palm-top):** A interface deve ser responsiva e utilizar elementos visuais (cards e botões largos) que facilitem o toque em telas pequenas.
+* **RNF02 - Persistência Confiável:** Uso de **SQLite** para garantir que a coleção seja preservada permanentemente.
+* **RNF03 - Eficiência de Busca:** As consultas ao banco de dados devem utilizar indexação para garantir que a filtragem de grandes coleções seja instantânea.
+* **RNF04 - Cibersegurança (Integridade):** O sistema deve validar o campo "Ano" para aceitar apenas valores numéricos dentro de um intervalo histórico válido (ex: 1900 a 2030).
+
+---
+### Diagrama de Classe - Questão 08
+
+```mermaid
+classDiagram
+    class Artista {
+        +nome: str
+        +tipo: str
+    }
+    class CD {
+        +titulo: str
+        +anoLancamento: int
+        -artista: Artista
+        +exibirInfo() str
+    }
+    class Colecao {
+        -listaCDs: List~CD~
+        +adicionar(cd)
+        +remover(id)
+        +pesquisar(termo)
+    }
+    Colecao "1" -- "*" CD : armazena
+    CD "*" -- "1" Artista : possui
+```
