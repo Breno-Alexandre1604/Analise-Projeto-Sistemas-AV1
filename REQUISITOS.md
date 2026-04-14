@@ -20,3 +20,20 @@ Este documento detalha os Requisitos Funcionais (RF) e Não Funcionais (RNF) par
 * **RNF05 - Cibersegurança (Privacidade):** O sistema deve garantir que os dados de consumo sejam armazenados apenas em memória de sessão segura (`st.session_state`), evitando exposição em logs ou URLs.
 
 ---
+### Diagrama de Classe - Questão 01
+```mermaid
+classDiagram
+    class ContaLuz {
+        +dataLeitura
+        +numLeitura
+        +kwGasto
+        +valorPagar
+        +dataPagamento
+        +mediaConsumo
+    }
+    class GerenciadorConsumo {
+        +list listaContas
+        +adicionarConta(conta)
+        +verificarMenorConsumo()
+        +verificarMaiorConsumo()
+    }
