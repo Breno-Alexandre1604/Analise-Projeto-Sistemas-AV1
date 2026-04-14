@@ -37,3 +37,39 @@ classDiagram
         +verificarMenorConsumo()
         +verificarMaiorConsumo()
     }
+```
+---
+
+## 🖥️ 02. Exercício: Classe TextoSaída
+
+### 2.1 Requisitos Funcionais (RF)
+* **RF01 - Definição de Conteúdo:** O sistema deve permitir que o usuário insira um texto (conteúdo) que será processado pela classe.
+* **RF02 - Configuração Estética:** O sistema deve permitir configurar o tamanho da letra, a cor da fonte e a cor de fundo do texto.
+* **RF03 - Seleção de Componente:** O sistema deve permitir a escolha do tipo de componente visual para exibição, restrito às opções: **Label** (rótulo estático), **Edit** (campo de linha única) e **Memo** (área de texto multilinha).
+* **RF04 - Restrição de Cores:** O sistema deve limitar as cores de fonte e fundo exclusivamente aos tons: preto, branco, azul, amarelo ou cinza.
+* **RF05 - Renderização Visual:** O sistema deve aplicar as configurações em tempo real e exibir o resultado visual simulando o componente escolhido.
+
+### 2.2 Requisitos Não Funcionais (RNF)
+* **RNF01 - Independência Visual:** A classe de domínio (`TextoSaida`) deve ser pura, ou seja, não deve herdar classes visuais de frameworks específicos, garantindo portabilidade.
+* **RNF02 - Padronização com Enums:** Devem ser utilizados tipos enumerados (Enums) para garantir que apenas cores e componentes válidos sejam processados (Cibersegurança/Integridade).
+* **RNF03 - Interface Web:** O front-end deve ser implementado via **Streamlit** com uso de injeção de CSS controlado para simular as propriedades visuais.
+* **RNF04 - Cibersegurança (XSS Prevention):** O sistema deve tratar a exibição de HTML para garantir que apenas o estilo pretendido seja renderizado, sem execução de scripts externos.
+
+---
+### Diagrama de Classe - Questão 02
+
+```mermaid
+classDiagram
+    class TextoSaida {
+        -conteudoTexto: str
+        +tamanhoLetra: int
+        +corFonte: str
+        +corFundo: str
+        +tipoComponente: str
+        +set_conteudoTexto(texto: str)
+        +configTexto(tamanho, fonte, fundo)
+        +definirComponente(tipo)
+        +exibir() dict
+    }
+```
+
