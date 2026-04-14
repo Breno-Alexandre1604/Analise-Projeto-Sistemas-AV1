@@ -151,3 +151,41 @@ classDiagram
     }
     Prescricao "1" -- "*" Dose : gerencia
 ```
+---
+
+## 💸 05. Exercício: Gastos Diários (Vera)
+
+### 5.1 Requisitos Funcionais (RF)
+* **RF01 - Registro de Despesas:** O sistema deve permitir o cadastro de gastos informando: tipo (categoria), data, valor e forma de pagamento.
+* **RF02 - Categorização de Gastos:** O sistema deve oferecer categorias pré-definidas (remédio, roupa, refeição, etc.).
+* **RF03 - Gestão de Pagamentos:** O sistema deve suportar múltiplas formas de pagamento: dinheiro, crédito, débito, Ticket Alimentação e Ticket Refeição.
+* **RF04 - Fechamento Mensal:** O sistema deve permitir filtrar os gastos por mês para consolidação de dados.
+* **RF05 - Agrupamento por Categoria:** O sistema deve calcular o total gasto em cada tipo de despesa no mês selecionado.
+* **RF06 - Agrupamento por Forma de Pagamento:** O sistema deve detalhar o quanto foi gasto em cada modalidade de pagamento dentro de cada categoria.
+
+### 5.2 Requisitos Não Funcionais (RNF)
+* **RNF01 - Usabilidade (Planilha):** A interface deve permitir a edição rápida em formato de grade (grid), similar ao Excel.
+* **RNF02 - Formatação Monetária:** Todos os valores devem ser exibidos no padrão brasileiro (R$).
+* **RNF03 - Cibersegurança (Validação de Tipos):** O sistema deve impedir a entrada de textos em campos numéricos de valor para evitar erros de processamento.
+* **RNF04 - Portabilidade:** O sistema deve permitir a exportação dos dados consolidados para o formato CSV.
+
+---
+### Diagrama de Classe - Questão 05
+
+```mermaid
+classDiagram
+    class Gasto {
+        +tipoGasto: str
+        +data: date
+        +valor: float
+        +formaPagamento: str
+    }
+    class FechamentoMensal {
+        +mesReferencia: str
+        -listaGastos: List~Gasto~
+        +calcularTotalMensal() float
+        +agruparTipoGasto() dict
+        +agruparFormaPagamento() dict
+    }
+    FechamentoMensal "1" -- "*" Gasto : processa
+```
